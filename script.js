@@ -179,8 +179,8 @@ const minesweeper = {
       result.mines.forEach((mine) => {
         this.placeSymbol(mine.x, mine.y, "mine");
       });
-      //add mineHit class to the event.target
       event.target.classList.add("mineHit");
+      this.displayOverlay("YOU LOSE!");
     } else {
       for (let cell of result.emptyCells) {
         this.placeSymbol(
@@ -243,6 +243,16 @@ const minesweeper = {
       this.cellRightClicked(event);
     }
   },
+  displayOverlay(text) {
+    const overlay = document.createElement("div");
+    overlay.classList.add("overlay");
+    const textHolder = document.createElement("div");
+    textHolder.innerText = text;
+    overlay.appendChild(textHolder);
+    //find the playfield and append the overlay
+    const playField = document.querySelector("#Playfield");
+    playField.appendChild(overlay);
+  },
 };
 
 const localLogic = {
@@ -298,7 +308,7 @@ const localLogic = {
       let uncoveredCells = this.countUncoveredCells();
       if (uncoveredCells === this.size * this.size - this.numberOfMines) {
         return { userWins: true };
-        alert("You Win");
+        this.minesweeper.displayOverlay("YOU WON!");
       }
 
       return {
