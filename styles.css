@@ -187,3 +187,7 @@ footer {
   background-position: right 0% bottom 50%;
   background-repeat: no-repeat;
 }
+
+.mineHit {
+  background-color: firebrick;
+}
